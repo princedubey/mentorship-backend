@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"mentorship-backend/config"
+	"mentorship-backend/handlers"
 	"mentorship-backend/models"
 	"mentorship-backend/routes"
 	"mentorship-backend/utils"
@@ -62,6 +63,13 @@ func main() {
 
 	// Setup routes
 	routes.SetupRoutes(r)
+
+	// Add health check route
+	r.GET("/health", handlers.HealthCheckHandler)
+	r.GET("/", handlers.HealthCheckHandler)
+
+	// Add not found handler for all unmatched routes
+	r.NoRoute(handlers.NotFoundHandler)
 
 	// Create HTTP handler
 	handler := r
