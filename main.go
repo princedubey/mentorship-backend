@@ -7,6 +7,7 @@ import (
 	"mentorship-backend/routes"
 	"mentorship-backend/utils"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
