@@ -3,18 +3,31 @@
   "builds": [
     {
       "src": "main.go",
-      "use": "@vercel/go"
+      "use": "@vercel/go",
+      "config": {
+        "serverless": true
+      }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "api/$1"
+      "dest": "main.go"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/$1"
     }
   ],
   "env": [
     "DATABASE_URL",
     "JWT_SECRET",
-    "PORT"
+    "PORT",
+    "CLOUDINARY_CLOUD_NAME",
+    "CLOUDINARY_API_KEY",
+    "CLOUDINARY_API_SECRET",
+    "FIREBASE_PROJECT_ID",
+    "FIREBASE_PRIVATE_KEY",
+    "FIREBASE_CLIENT_EMAIL"
   ]
 }

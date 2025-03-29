@@ -6,7 +6,7 @@ import (
 	"mentorship-backend/models"
 	"mentorship-backend/routes"
 	"mentorship-backend/utils"
-	"os"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -15,7 +15,7 @@ import (
 func main() {
 	// Load environment variables
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
+		log.Printf("Warning: .env file not found: %v", err)
 	}
 
 	// Initialize Firebase Admin SDK
@@ -62,12 +62,20 @@ func main() {
 	// Setup routes
 	routes.SetupRoutes(r)
 
-	// Get port from env
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+	// Create HTTP handler
+	handler := r
 
-	log.Printf("Server starting on port %s", port)
-	r.Run(":" + port)
+	// If running in Vercel, use the provided handler
+	if os.Getenv("VERCEL") == "1" {
+		log.Printf("Running in Vercel environment")
+		http.ListenAndServe("", handler)
+	} else {
+		// For local development
+		port := os.Getenv("PORT")
+		if port == "" {
+			port = "8080"
+		}
+		log.Printf("Server starting on port %s", port)
+		http.ListenAndServe(":"+port, handler)
+	}
 }

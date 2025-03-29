@@ -8,10 +8,18 @@ A Go-based backend for a mentorship platform.
 
 1. Create a new project on Vercel
 2. Connect your GitHub repository
-3. Configure environment variables in Vercel dashboard:
-   - DATABASE_URL
-   - JWT_SECRET
-   - PORT (optional, defaults to 3000)
+3. Add the following environment variables in Vercel:
+   - `DATABASE_URL`: Your PostgreSQL database URL
+   - `JWT_SECRET`: Your JWT secret key
+   - `PORT`: Set to 3000 (Vercel default)
+   - `CLOUDINARY_CLOUD_NAME`: Your Cloudinary cloud name
+   - `CLOUDINARY_API_KEY`: Your Cloudinary API key
+   - `CLOUDINARY_API_SECRET`: Your Cloudinary API secret
+   - `FIREBASE_PROJECT_ID`: Your Firebase project ID
+   - `FIREBASE_PRIVATE_KEY`: Your Firebase private key
+   - `FIREBASE_CLIENT_EMAIL`: Your Firebase client email
+
+4. Deploy the project
 
 ### Railway
 
